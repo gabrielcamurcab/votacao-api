@@ -19,7 +19,10 @@ $dotenv->load();
 $url = $_ENV['BASE_URL'];
 
 $routes = [
-    "$url/votacao" => ['POST' => ['controller' => VotacaoController::class, 'method' => 'criarVotacao']],
+    "$url/votacao" => [
+        'POST' => ['controller' => VotacaoController::class, 'method' => 'criarVotacao'],
+        'GET' => ['controller' => VotacaoController::class, 'method' => 'pegarVotacoes']
+    ]
 ];
 
 $requestedRoute = $_SERVER['REQUEST_URI'];

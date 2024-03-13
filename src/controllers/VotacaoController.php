@@ -14,4 +14,10 @@ class VotacaoController {
 
         return $votacao->criarVotacao();
     }
+
+    public function pegarVotacoes() {
+        $votacao = new Votacao();
+
+        return $votacao->pegarVotacoes();
+    }
 }

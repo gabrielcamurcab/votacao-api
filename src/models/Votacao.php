@@ -14,7 +14,7 @@ class Votacao
     public $data_inicio;
     public $data_fim;
 
-    public function __construct($titulo, $data_inicio, $data_fim)
+    public function __construct($titulo = null, $data_inicio = null, $data_fim = null)
     {
         $this->uuid = uniqid();
         $this->titulo = $titulo;
@@ -29,6 +29,7 @@ class Votacao
             $redis = $redisConfig->getConnection();
 
             $redis->hmset("votacao:{$this->uuid}", [
+                'uuid' => $this->uuid,
                 'titulo' => $this->titulo,
                 'data_inicio' => $this->data_inicio,
                 'data_fim' => $this->data_fim
@@ -52,6 +53,31 @@ class Votacao
             ];
 
             return json_encode($response);
+        }
+    }
+
+    public function pegarVotacoes()
+    {
+        try {
+            $redisConfig = new Redis();
+            $redis = $redisConfig->getConnection();
+
+            $keys = $redis->keys("votacao:*");
+
+            $votacoes = [];
+
+            foreach ($keys as $key) {
+                $votacaoData = $redis->hgetall($key);
+
+                $votacoes[] = $votacaoData;
+            }
+
+            echo json_encode($votacoes);
+
+        } catch (Exception $err) {
+            error_log($err->getMessage());
+
+            return false;
         }
     }
 }
