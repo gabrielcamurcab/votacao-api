@@ -1,0 +1,20 @@
+# Ignorar arquivos e pastas específicos
+vendor/
+node_modules/
+.idea/
+.vscode/
+.env
+
+# Ignorar todos os arquivos de configuração local (por exemplo, config.php)
+config*.php
+
+# Ignorar arquivos de logs e cache
+logs/
+cache/
+
+# Ignorar arquivos de backup
+*.bak
+*.backup
+
+# Ignorar arquivos de upload temporários
+uploads/temp/
